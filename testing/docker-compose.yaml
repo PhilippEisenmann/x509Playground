@@ -1,0 +1,11 @@
+services:
+  my-http-listener:
+    image: mendhak/http-https-echo:33
+    environment:
+      - MTLS_ENABLE=1
+    ports:
+      - "9080:8080"
+      - "8443:8443"
+    volumes:
+      - ./certificate.pem:/app/fullchain.pem
+      - ./certificate.key:/app/privkey.pem

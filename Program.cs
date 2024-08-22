@@ -95,6 +95,10 @@ class Program
 
     private static async void webcall(X509Certificate2 clientCertificate)
     {
+        //enable certficate chechking
+        //https://learn.microsoft.com/en-us/dotnet/api/system.net.http.httpclienthandler.checkcertificaterevocationlist?view=net-8.0
+        System.Net.ServicePointManager.CheckCertificateRevocationList = true;
+
         // Create an HttpClient with MTLS authentication
         HttpClient httpClient = new HttpClient(new HttpClientHandler
         {
@@ -105,9 +109,7 @@ class Program
 
         try
         {
-            //enable certficate chechking
-            //https://learn.microsoft.com/en-us/dotnet/api/system.net.http.httpclienthandler.checkcertificaterevocationlist?view=net-8.0
-            System.Net.ServicePointManager.CheckCertificateRevocationList = true;
+
 
             // Send the webhook request
             HttpResponseMessage response = httpClient.GetAsync(ConfigurationManager.AppSettings["url"]).Result;
